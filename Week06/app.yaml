@@ -1,0 +1,10 @@
+step:
+- name: 'gcr.io/cloud-builders/git'
+  args:
+  - functions
+  - deploy
+  - send_email
+  - --source=.
+  - --trigger-http
+  - --runtime=python37
+  - --allow-unauthenticated
