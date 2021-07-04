@@ -118,9 +118,11 @@ def visualize_predicted_result(df, target):
     st.subheader("The Predicted Percentage Of Success:");
     data = df.groupby(target).size().sort_values(ascending=False)
     label_dict = {1:'yes',0:'no'}
-    fig = plt.figure()
-    plt.pie(x=data , autopct="%.1f%%",pctdistance=0.5, labels= [label_dict[val] for val in data.index.tolist()], radius=0.5);
-    st.pyplot(fig)  
+    
+    fig = plt.figure(figsize = (3,3))
+    plt.pie(x=data , autopct="%.1f%%",  labels= [label_dict[val] for val in data.index.tolist()], pctdistance=0.7, radius=1.1)
+    col1, col2, col3 = st.beta_columns(3)
+    col2.pyplot(fig)  
     
 def predict_data_file(file):
     upload_data = get_df(file)
@@ -144,9 +146,10 @@ def predict_data_file(file):
     visualize_predicted_result(upload_data, result_col)
     
     ## view result
-    view_result_option = ['View All',"View Successful List", "View Unsuccesful List"]
     st.subheader("Choose View:")
-    view_type_id = st.selectbox('',options = view_result_option)
+    view_result_option = ['View All',"View Successful List", "View Unsuccesful List"]
+    col1, col2, col3, col4, col5, col6 = st.beta_columns(6)
+    view_type_id = col1.selectbox('',options = view_result_option)
     if (view_type_id == view_result_option[0]):
         st.write(upload_data) 
     else:
